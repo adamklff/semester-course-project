@@ -2,34 +2,18 @@
 #define ARRAY_LIST_H
 
 #include "login_record.h"
-
-/*
-===============================================================================
-ARRAY LIST — ARRAY-BASED LOGIN STORAGE
-===============================================================================
-
-Stores LoginRecord elements in contiguous memory.
-
-Responsibilities:
-- Insert
-- Delete
-- Traverse
-
-No detection or classification logic allowed here.
-
-===============================================================================
-*/
+#include <stddef.h>
 
 typedef struct {
     LoginRecord *data;
-    int size;
-    int capacity;
+    size_t size;
+    size_t capacity;
 } ArrayList;
 
-void array_init(ArrayList *list, int capacity);
-void array_insert(ArrayList *list, LoginRecord record);
-void array_delete(ArrayList *list, int index);
-void array_print(const ArrayList *list);
-void array_free(ArrayList *list);
+void array_list_init(ArrayList *list);
+void array_list_add(ArrayList *list, LoginRecord record);
+void array_list_remove_at(ArrayList *list, size_t index);
+LoginRecord* array_list_get(ArrayList *list, size_t index);
+void array_list_free(ArrayList *list);
 
 #endif

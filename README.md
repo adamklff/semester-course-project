@@ -1,61 +1,21 @@
-# semester-course-project
+# Login Log Review
 
-### Module Assignments
+A C coursework prototype that reads synthetic login events from a CSV file and flags accounts that reach five failed attempts. It demonstrates array-backed storage and an optional linked-list view.
 
-- **Adam**
-  - `src/array_list.c`
-  - `src/linked_list.c`
+## Run the example
 
-- **Malak**
-  - `src/stack.c`
+Use GCC and Make.
 
-- **Marwa**
-  - `src/queue.c`
-  - `src/priority_queue.c`
+```sh
+make
+./login-review examples/logins.csv
+./login-review examples/logins.csv --list
+```
 
-- **Hamza**
-  - `src/search.c`
+The example analyzes six login records and flags `alice`. The input format is an unquoted CSV with four fields: timestamp, username, IPv4 text, and success (`0` or `1`). The rule counts all failures per account for the supplied file. The threshold is set in `include/config.h`.
 
-- **Yassine**
-  - `src/sort.c`
-  - `src/tree.c`
+## Coursework and credit
 
-- **Haytam**
-  - `src/graph.c`
+The original group plan assigned the array and linked list modules to Adam. The runnable follow-up builds on the coursework interfaces and linked-list code from [patch-7](../../tree/patch-7) with AI assistance. Queue, stack, tree, graph, sorting, and search files remain coursework scaffolding and are outside the demo's build.
 
-### Responsibility Rules
-
-- Each member is responsible for:
-  - Correct implementation of assigned modules
-  - Memory safety and correctness
-  - Compliance with function contracts defined in header files
-- No member may modify another module’s public interface without team approval
-- Integration is performed only after all modules respect their documented behavior
-
-### Oral Defense Note
-
-During the oral defense, each team member must be able to:
-- Explain the design choices of their assigned data structures
-- Justify algorithmic complexity
-- Describe how their module interacts with the rest of the system
-
-### Design Rule
-
-All behavioral rules and module responsibilities are defined in the `.h` files.  
-Each `.c` file must strictly follow the contract described in its corresponding header.
-
----
-
-## Core Data Structure
-
-### LoginRecord
-
-`LoginRecord` is the **central data model** shared across all modules.
-
-```c
-typedef struct {
-    char timestamp[20];
-    char username[32];
-    char ip[16];
-    int success;  // 1 = success, 0 = failure
-} LoginRecord;
+See the [MIT License](LICENSE).

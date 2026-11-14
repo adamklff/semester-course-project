@@ -1,0 +1,19 @@
+name: Build and smoke test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test Login Log Review
+        shell: bash
+        run: |
+          make CFLAGS="-std=c99 -Wall -Wextra -Wpedantic -Werror"
+          ./login-review examples/logins.csv --list > actual.txt
+          grep -Fx 'Analyzed 6 login records' actual.txt
+          grep -Fx 'Alert: alice reached 5 failed attempts' actual.txt
+          grep -F 'User: bob' actual.txt
+          printf 'invalid\n' > invalid.csv
+          if ./login-review invalid.csv; then exit 1; fi
